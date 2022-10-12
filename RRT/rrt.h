@@ -12,24 +12,24 @@ using namespace cv;
 
 class node {
 private:
-    float x, y;                // ½Úµã×ø±ê
-    vector<float> pathX, pathY;// Â·¾¶
-    node* parent;              // ¸¸½Úµã
+    float x, y;                // ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½
+    vector<float> pathX, pathY;// Â·ï¿½ï¿½
+    node* parent;              // ï¿½ï¿½ï¿½Úµï¿½
     float cost;
 public:
     node(float _x, float _y);
-    float getX();
-    float getY();
-    void setParent(node*);
-    node* getParent();
+    float getX(); // è¯»
+    float getY(); // è¯»
+    void setParent(node*); // å†™
+    node* getParent();  // è¯»
 };
 
 class RRT {
 private:
-    node* startNode, * goalNode;        // ÆðÊ¼½ÚµãºÍÄ¿±ê½Úµã
-    vector<vector<float>> obstacleList; // ÕÏ°­Îï
+    node* startNode, * goalNode;        // ï¿½ï¿½Ê¼ï¿½Úµï¿½ï¿½Ä¿ï¿½ï¿½Úµï¿½
+    vector<vector<float>> obstacleList; // ï¿½Ï°ï¿½ï¿½ï¿½
     vector<node*> nodeList;             // 
-    float stepSize;                     // ²½³¤
+    float stepSize;                     // ï¿½ï¿½ï¿½ï¿½
 
     int goal_sample_rate;
 

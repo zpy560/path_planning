@@ -7,11 +7,13 @@ set(SOURCE
 )
 
 add_executable(path_planning ${SOURCE})
+add_executable(path_planning_RRT RRT/main.cpp RRT/rrt.cpp)
 
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 link_directories(${OpenCV_LIBRARY_DIRS})
 target_link_libraries(path_planning ${OpenCV_LIBS})
+target_link_libraries(path_planning_RRT ${OpenCV_LIBS})
 
 target_include_directories(path_planning
     PRIVATE 

@@ -60,7 +60,7 @@ void Star(Node* n, std::vector<Node*>& adjacent_nodes) {
 
 void CalculateHeuristicCost(Node* goal_node) { // cal h value
   for (int i = 0; i < kMapDimensionX; ++i) {
-    for (int j = 0; j < kMapDimensionY; ++j) {
+    for (int j = 0; j < kMapDimensionY; ++j) { // 遍历地图
       double heuristic_cost =
           std::hypot(i - goal_node->point().x, j - goal_node->point().y);
       map.mutable_node(i, j)->set_heuristic_cost(heuristic_cost);
@@ -93,7 +93,7 @@ double c(Node* n_best, Node* adjacent_node) {
 }
 
 bool AStarAlgorithm(Node* start_node, Node* goal_node) {
-  CalculateHeuristicCost(goal_node); // cal all node h value
+  CalculateHeuristicCost(goal_node); // 计算所有节点的 h 值
 
   AddObstacles();
 
@@ -110,14 +110,14 @@ bool AStarAlgorithm(Node* start_node, Node* goal_node) {
     // Remove n_best from O and add to C.
     O.pop();
     C.insert(n_best);
-    if (n_best == goal_node) break;
+    if (n_best == goal_node) break; // 到达目标点
     std::vector<Node*> adjacent_nodes;
     Star(n_best, adjacent_nodes);
-    for (Node* adjacent_node : adjacent_nodes) {
+    for (Node* adjacent_node : adjacent_nodes) { //遍历邻接节点
       if (C.find(adjacent_node) != C.end() || adjacent_node->is_visited() ||
           adjacent_node->is_obstacle())
         continue;
-      adjacent_node->set_path_length_cost(n_best->path_length_cost() +
+      adjacent_node->set_path_length_cost(n_best->path_length_cost() + // 添加节点的 cost 值
                                           c(n_best, adjacent_node));
       adjacent_node->set_total_cost();
       O.push(adjacent_node);
@@ -134,7 +134,7 @@ bool AStarAlgorithm(Node* start_node, Node* goal_node) {
 
 void DrawPath(Node* start_node, Node* goal_node) {
   const Node* path_node = goal_node->pre_node();
-  while (path_node != start_node) {
+  while (path_node != start_node) { // 从目标节点回溯父节点
     map.DrawNode(*path_node, cv::Scalar(128, 128, 128));
     path_node = path_node->pre_node();
     cv::imshow("a_star", map.background());
