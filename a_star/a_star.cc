@@ -16,14 +16,14 @@ static constexpr int32_t kMapDimensionY = 50;
 static Map map(kMapDimensionX, kMapDimensionY);
 }  // namespace
 
-bool IsCoordinateValid(int32_t x, int32_t y) {
+bool IsCoordinateValid(int32_t x, int32_t y) { // in map
   return x >= 0 && x < kMapDimensionX && y >= 0 && y < kMapDimensionY;
 }
 
-// Return the set of nodes which are adjacent to n.
+// Return the set of nodes which are adjacent to n. // add 8 adjacent Node
 void Star(Node* n, std::vector<Node*>& adjacent_nodes) {
   int32_t x = n->point().x, y = n->point().y;
-  if (IsCoordinateValid(x, y - 1)) {
+  if (IsCoordinateValid(x, y - 1)) { // check in map
     Node* upper_node = map.mutable_node(x, y - 1);
     adjacent_nodes.push_back(upper_node);
   }
@@ -58,7 +58,7 @@ void Star(Node* n, std::vector<Node*>& adjacent_nodes) {
   return;
 }
 
-void CalculateHeuristicCost(Node* goal_node) {
+void CalculateHeuristicCost(Node* goal_node) { // cal h value
   for (int i = 0; i < kMapDimensionX; ++i) {
     for (int j = 0; j < kMapDimensionY; ++j) {
       double heuristic_cost =
@@ -93,7 +93,7 @@ double c(Node* n_best, Node* adjacent_node) {
 }
 
 bool AStarAlgorithm(Node* start_node, Node* goal_node) {
-  CalculateHeuristicCost(goal_node);
+  CalculateHeuristicCost(goal_node); // cal all node h value
 
   AddObstacles();
 
@@ -102,8 +102,8 @@ bool AStarAlgorithm(Node* start_node, Node* goal_node) {
     return lhs->total_cost() > rhs->total_cost();
   };
   std::priority_queue<Node*, std::vector<Node*>, decltype(compare)> O(compare);
-  O.push(start_node);
-  C.insert(start_node);
+  O.push(start_node); // open queue 
+  C.insert(start_node); // close set
   while (!O.empty()) {
     // Pick nbest from O such that f(nbest) <= f(n).
     Node* n_best = O.top();
