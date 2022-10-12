@@ -6,12 +6,21 @@
 [OpenCV](https://docs.opencv.org/4.5.3/d7/d9f/tutorial_linux_install.html)(OpenCV4 recommend)
 
 ### 1.2 Build program
+A* 
 ```
 mkdir build
 cd build
 cmake ..
-make -j10
+make 
 ./path_planning
+```
+RRT
+```
+mkdir build
+cd build
+cmake ..
+make 
+./path_planning_RRT
 ```
 ### 1.3 Supplementary Instruction
 The rightward direction is the positive direction of the X-axis<br>
